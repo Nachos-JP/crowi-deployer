@@ -1,0 +1,5 @@
+data
+.git
+Dockerfile
+.dockerignore
+.env

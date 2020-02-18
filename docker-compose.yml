@@ -1,0 +1,41 @@
+version: "3"
+services:
+  crowi:
+    build:
+      context: .
+      args:
+        PROXY: $http_proxy
+    restart: always
+    environment:
+      MONGO_URI: mongodb://mongo:27017/crowi
+      PASSWORD_SEED: ${PASSWORD_SEED}
+    ports:
+      - "3000:3000"
+    depends_on:
+      - "mongo"
+      - "elasticsearch"
+    command: npm start
+  mongo:
+    image: mongo:3.6.17
+    restart: always
+    volumes:
+      - ./data/mongodb:/data/db
+  elasticsearch:
+    image: matchingagent/elasticsearch-kuromoji:6.5.4
+    restart: always
+    environment:
+      bootstrap.memory_lock: "true"
+      discovery.type: single-node
+      xpack.graph.enabled: "false"
+      xpack.ml.enabled: "false"
+      xpack.monitoring.enabled: "false"
+      xpack.security.enabled: "false"
+      xpack.watcher.enabled: "false"
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
+    volumes:
+      - ./data/elasticsearch:/usr/share/elasticsearch/data
+    ports:
+      - 9200:9200
