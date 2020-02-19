@@ -12,8 +12,11 @@ PASSWORD_SEED=************
 
 # Deploy
 ```
-docker-compose build
-docker-compose up -d
+# Build crowi image
+$ docker-compose build
+
+# Run crowi
+$ docker-compose up -d
 ```
 
 By default, listen to port 3000.  
