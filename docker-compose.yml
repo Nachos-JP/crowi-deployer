@@ -8,6 +8,7 @@ services:
     restart: always
     environment:
       MONGO_URI: mongodb://mongo:27017/crowi
+      ELASTICSEARCH_URI: http://elasticsearch:9200/
       PASSWORD_SEED: ${PASSWORD_SEED}
     ports:
       - "3000:3000"
@@ -38,4 +39,4 @@ services:
     volumes:
       - ./data/elasticsearch:/usr/share/elasticsearch/data
     ports:
-      - 9200:9200
+      - "9200:9200"
